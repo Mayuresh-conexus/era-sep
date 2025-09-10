@@ -13,6 +13,10 @@ class GalleryResource extends Resource
     protected static ?string $model = Gallery::class;
     protected static ?string $navigationIcon = 'heroicon-o-photo';
     protected static ?string $navigationGroup = 'Media';
+      public static function getNavigationBadge(): ?string
+        {
+            return static::getModel()::count(); // returns total number of alumni
+        }
 
     public static function form(Forms\Form $form): Forms\Form
     {
