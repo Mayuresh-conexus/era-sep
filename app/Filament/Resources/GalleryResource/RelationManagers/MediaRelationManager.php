@@ -3,33 +3,40 @@
 namespace App\Filament\Resources\GalleryResource\RelationManagers;
 
 use Filament\Forms;
+use Filament\Forms\Get;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 
 class MediaRelationManager extends RelationManager
 {
-    protected static string $relationship = 'media'; // Make sure your Gallery model has `media()` relation
+    protected static string $relationship = 'media';
 
     public function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
+                // Select media type
                 Forms\Components\Select::make('type')
-                    ->options([
-                        'photo' => 'Photo',
-                        'video' => 'Video',
-                    ])
-                    ->required(),
+    ->label('Media Type')
+    ->options(['photo'=>'Photo','video'=>'Video'])
+    ->default('photo')
+    ->reactive()
+    ->required(),
 
-                Forms\Components\FileUpload::make('file_path')
-                    ->directory('galleries/photos')
-                    ->image()
-                    ->visible(fn ($get) => $get('type') === 'photo'),
+Forms\Components\FileUpload::make('file_path')
+    ->label('Photo')
+    ->directory('galleries/photos')
+    ->image()
+    ->nullable()
+    ->visible(fn (Get $get) => $get('type') === 'photo'),
 
-                Forms\Components\TextInput::make('video_url')
-                    ->url()
-                    ->placeholder('https://youtube.com/...')
-                    ->visible(fn ($get) => $get('type') === 'video'),
+Forms\Components\TextInput::make('video_url')
+    ->label('Video URL')
+    ->url()
+    ->nullable()
+    ->placeholder('https://youtube.com/...')
+    ->visible(fn (Get $get) => $get('type') === 'video'),
+
             ]);
     }
 
