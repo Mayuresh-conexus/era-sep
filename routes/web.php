@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +33,11 @@ Route::get('/gallery', function () {
     return view('frontend.gallery');
 });
 
-Route::get('/event', function () {
-    return view('frontend.event');
-});
+
+//Events
+Route::get('/events', [EventController::class, 'index'])->name('events.index');
+Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
+
 
 
 Route::get('/dashboard', function () {

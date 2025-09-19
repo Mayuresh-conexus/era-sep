@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\GalleryResource\Pages;
+use App\Filament\Resources\GalleryResource\RelationManagers;
 use App\Models\Gallery;
 use Filament\Forms;
 use Filament\Resources\Resource;
@@ -13,10 +14,11 @@ class GalleryResource extends Resource
     protected static ?string $model = Gallery::class;
     protected static ?string $navigationIcon = 'heroicon-o-photo';
     protected static ?string $navigationGroup = 'Media';
-      public static function getNavigationBadge(): ?string
-        {
-            return static::getModel()::count(); // returns total number of alumni
-        }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count(); 
+    }
 
     public static function form(Forms\Form $form): Forms\Form
     {
@@ -29,22 +31,6 @@ class GalleryResource extends Resource
                     ->minValue(1950)
                     ->maxValue(date('Y')),
                 Forms\Components\Textarea::make('description')->columnSpanFull(),
-
-                // Bulk Upload Photos
-                Forms\Components\FileUpload::make('photos')
-                    ->multiple()
-                    ->directory('galleries/photos')
-                    ->image()
-                    ->columnSpanFull(),
-
-                // Add Video URLs
-                Forms\Components\Repeater::make('videos')
-                    ->schema([
-                        Forms\Components\TextInput::make('video_url')
-                            ->url()
-                            ->placeholder('https://youtube.com/...'),
-                    ])
-                    ->columnSpanFull(),
             ]);
     }
 
@@ -65,7 +51,7 @@ class GalleryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            // later we can add a RelationManager for GalleryMedia
+            RelationManagers\MediaRelationManager::class, // ✅ handles photos + videos
         ];
     }
 
