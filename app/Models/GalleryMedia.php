@@ -8,7 +8,7 @@ class GalleryMedia extends Model
 {
     protected $fillable = ['gallery_id', 'type', 'file_path', 'video_url'];
 
-    // Cast file_path to array for multiple uploads
+    // IMPORTANT: cast file_path to array because FileUpload->multiple() saves JSON array
     protected $casts = [
         'file_path' => 'array',
     ];

@@ -13,17 +13,12 @@ class AlumniResource extends Resource
     protected static ?string $model = Alumni::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
-    protected static ?string $navigationGroup = 'Alumni Management';
-    protected static ?string $navigationLabel = 'Alumni';
+   
     public static function getNavigationBadge(): ?string
 {
     return static::getModel()::count(); // returns total number of alumni
 }
 
-public static function canViewAny(): bool
-{
-    return auth()->user()->can('viewAny Alumni'); 
-}
 
 
     public static function form(Forms\Form $form): Forms\Form

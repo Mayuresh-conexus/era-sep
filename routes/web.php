@@ -3,6 +3,9 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\GalleryController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -29,16 +32,14 @@ Route::get('/', function () {
 });
 
 
-Route::get('/gallery', function () {
-    return view('frontend.gallery');
-});
-
 
 //Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
-
+//Gallery
+Route::get('/gallery', [GalleryController::class, 'index'])->name('galleries.index');
+Route::get('/gallery/{gallery}', [GalleryController::class, 'show'])->name('galleries.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
