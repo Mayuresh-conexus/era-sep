@@ -17,26 +17,31 @@ class MediaRelationManager extends RelationManager
             ->schema([
                 // Select media type
                 Forms\Components\Select::make('type')
-    ->label('Media Type')
-    ->options(['photo'=>'Photo','video'=>'Video'])
-    ->default('photo')
-    ->reactive()
-    ->required(),
+                    ->label('Media Type')
+                    ->options([
+                        'photo' => 'Photo',
+                        'video' => 'Video',
+                    ])
+                    ->default('photo')
+                    ->reactive()
+                    ->required(),
 
-Forms\Components\FileUpload::make('file_path')
-    ->label('Photo')
-    ->directory('galleries/photos')
-    ->image()
-    ->nullable()
-    ->visible(fn (Get $get) => $get('type') === 'photo'),
+                // Multiple photo upload
+                Forms\Components\FileUpload::make('file_path')
+                    ->label('Photos')
+                    ->directory('galleries/photos')
+                    ->image()
+                    ->nullable()
+                    ->multiple() // ✅ allow multiple photos
+                    ->visible(fn (Get $get) => $get('type') === 'photo'),
 
-Forms\Components\TextInput::make('video_url')
-    ->label('Video URL')
-    ->url()
-    ->nullable()
-    ->placeholder('https://youtube.com/...')
-    ->visible(fn (Get $get) => $get('type') === 'video'),
-
+                // Single video URL
+                Forms\Components\TextInput::make('video_url')
+                    ->label('Video URL')
+                    ->url()
+                    ->nullable()
+                    ->placeholder('https://youtube.com/...')
+                    ->visible(fn (Get $get) => $get('type') === 'video'),
             ]);
     }
 
@@ -45,7 +50,7 @@ Forms\Components\TextInput::make('video_url')
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('type')->sortable(),
-                Tables\Columns\ImageColumn::make('file_path')->label('Photo'),
+                Tables\Columns\ImageColumn::make('file_path')->label('Photos'), // can display first photo or thumbnails
                 Tables\Columns\TextColumn::make('video_url')->label('Video URL'),
             ])
             ->headerActions([

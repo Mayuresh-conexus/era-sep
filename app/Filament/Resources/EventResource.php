@@ -28,6 +28,12 @@ class EventResource extends Resource
             return static::getModel()::count(); // returns total number of alumni
         }
 
+
+       public static function canViewAny(): bool
+{
+    return auth()->user()->can('viewAny Event'); 
+}
+     
     public static function form(Form $form): Form
     {
         return $form

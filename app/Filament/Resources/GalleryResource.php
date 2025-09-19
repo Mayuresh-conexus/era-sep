@@ -20,6 +20,12 @@ class GalleryResource extends Resource
         return static::getModel()::count(); 
     }
 
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->can('viewAny Gallery'); 
+    }
+
+
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form

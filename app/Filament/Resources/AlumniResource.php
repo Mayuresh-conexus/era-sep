@@ -20,6 +20,12 @@ class AlumniResource extends Resource
     return static::getModel()::count(); // returns total number of alumni
 }
 
+public static function canViewAny(): bool
+{
+    return auth()->user()->can('viewAny Alumni'); 
+}
+
+
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form

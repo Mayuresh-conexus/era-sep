@@ -11,23 +11,49 @@ class AdminSetupSeeder extends Seeder
 {
     public function run(): void
     {
-        // Create admin role if it doesn't exist
-        $role = Role::firstOrCreate(['name' => 'admin', 'guard_name' => 'web']);
+        // 1️⃣ Ensure admin role exists
+        $role = Role::firstOrCreate([
+            'name' => 'admin',
+            'guard_name' => 'web',
+        ]);
 
-        // Assign all permissions to admin role
-        $permissions = Permission::all();
-        $role->syncPermissions($permissions);
+        // 2️⃣ List your Filament resources manually
+        $resources = [
+            'Gallery',
+            'Alumni',
+            'Event',
+            // Add more resource names as needed
+        ];
 
-        // Assign role to default admin user
+        // 3️⃣ Generate standard CRUD permissions for each resource
+        $actions = ['viewAny', 'view', 'create', 'update', 'delete', 'restore', 'forceDelete'];
+
+        foreach ($resources as $resource) {
+            foreach ($actions as $action) {
+                $permName = "{$action} {$resource}";
+                Permission::firstOrCreate([
+                    'name' => $permName,
+                    'guard_name' => 'web',
+                ]);
+            }
+        }
+
+        // 4️⃣ Assign all permissions to admin role
+        $role->syncPermissions(Permission::all());
+
+        // 5️⃣ Ensure default admin user exists
         $admin = User::firstOrCreate(
             ['email' => 'admin@example.com'],
             [
                 'name' => 'admin',
-                'password' => bcrypt('password'), // default password, you can change
+                'password' => bcrypt('password'), // change this to a secure password
             ]
         );
 
-        $admin->assignRole($role);
+        // 6️⃣ Assign admin role to the user
+        if (!$admin->hasRole($role)) {
+            $admin->assignRole($role);
+        }
 
         $this->command->info('✅ Admin role, permissions, and user setup complete.');
     }
