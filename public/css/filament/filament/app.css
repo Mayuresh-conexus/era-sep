@@ -37,9 +37,9 @@
 
 /* Sidebar badges */
 .fi-badge {
-    background-color: #eff6ff !important; /* light badge bg */
+    background-color: #fff5e9 !important; /* light badge bg */
     color: #d97706 !important; /* blue text */
-    border: 1px solid #dbeafe; /* subtle badge border */
+    border: 1px solid #ffd39d; /* subtle badge border */
 }
 
 /* Dark mode override (optional, if you want white even in dark) */
