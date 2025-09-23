@@ -21,7 +21,7 @@ class EventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-    protected static ?string $navigationGroup = 'ERA Listings';
+
 
       public static function getNavigationBadge(): ?string
         {
