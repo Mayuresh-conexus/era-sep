@@ -13,6 +13,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Str;
+use Filament\Tables\Columns\ImageColumn;
 
 class PostResource extends Resource
 {
@@ -28,6 +29,9 @@ class PostResource extends Resource
    public static function form(Form $form): Form
 {
     return $form
+
+    ->schema([
+    Forms\Components\Section::make('Post Information')
         ->schema([
             Forms\Components\TextInput::make('title')
                 ->required()
@@ -62,6 +66,7 @@ class PostResource extends Resource
 
             Forms\Components\Toggle::make('published')
                 ->label('Published'),
+                ]),
         ]);
 }
 
@@ -72,8 +77,8 @@ class PostResource extends Resource
 {
     return $table
         ->columns([
+            ImageColumn::make('featured_image')->circular(),
             Tables\Columns\TextColumn::make('title')->sortable()->searchable(),
-            Tables\Columns\TextColumn::make('slug')->sortable()->searchable(),
             Tables\Columns\IconColumn::make('published')->boolean(),
             Tables\Columns\TextColumn::make('created_at')->dateTime('d M Y'),
         ])

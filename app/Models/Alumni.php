@@ -10,25 +10,24 @@ class Alumni extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'phone',
-        'gender',
-        'date_of_birth',
-        'batch_year',          // e.g., 2005
-        'department',          // e.g., Computer Science
-        'degree',              // e.g., B.Sc, MBA
-        'passing_year',        // e.g., 2008
-        'address',             // full address
-        'city',
-        'state',
-        'country',
-        'current_job_title',   // e.g., Software Engineer
-        'company',             // e.g., Google
-        'linkedin_url',
-        'profile_photo',       // path to uploaded photo
-        'bio',                 // short introduction
-        'status',              // active/inactive
-    ];
+    'first_name','last_name','email','phone','gender','date_of_birth',
+    'association','title','maiden_name','mobile_country_code','mobile_number',
+    'whatsapp_country_code','whatsapp_number','residential_number',
+    'address','city','state','country','passing_year',
+    'employment_status','company','job_title','industry','linkedin_url',
+    'status','bio','profile_photo','interests','communication_preferences','verify_info' ,'agree_terms' ,'consent_communications',
+];
+
+protected $casts = [
+    'interests' => 'array',
+    'communication_preferences' => 'array',
+    'verify_info' => 'boolean',
+    'agree_terms' => 'boolean',
+    'consent_communications' => 'boolean',
+    'date_of_birth' => 'date',
+    'status' => 'boolean',
+];
+
+
+
 }

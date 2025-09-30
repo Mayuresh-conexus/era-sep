@@ -21,9 +21,7 @@ class EventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
 
-
-
-      public static function getNavigationBadge(): ?string
+    public static function getNavigationBadge(): ?string
         {
             return static::getModel()::count(); // returns total number of alumni
         }
@@ -32,19 +30,36 @@ class EventResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                TextInput::make('title')->required()->maxLength(255),
-                DatePicker::make('date')->required(),
-                TextInput::make('location')->maxLength(255),
-                Textarea::make('description')->columnSpanFull(),
-                TextInput::make('organised_by')->maxLength(255),
-                TextInput::make('sponsored_by')->maxLength(255),
-                TextInput::make('conducted_by')->maxLength(255),
-                TextInput::make('participants')->numeric(),
-                FileUpload::make('photos')->multiple()->image()->directory('events/photos'),
-                FileUpload::make('videos')->multiple()->acceptedFileTypes(['video/mp4'])->directory('events/videos'),
-                TextInput::make('registration_fee')->numeric()->default(0),
-            ]);
+        
+          ->schema([
+    Forms\Components\Section::make('Event Information')
+        ->schema([
+            TextInput::make('title')->required()->maxLength(255),
+            DatePicker::make('date')->required(),
+            TextInput::make('location')->maxLength(255),
+            TextInput::make('registration_fee')->numeric()->default(0),
+            Textarea::make('description')->columnSpanFull(),
+            TextInput::make('organised_by')->maxLength(255),
+            TextInput::make('sponsored_by')->maxLength(255),
+            TextInput::make('conducted_by')->maxLength(255),
+            TextInput::make('participants')->numeric(),
+            FileUpload::make('photos')
+                ->multiple()
+                ->image()
+                ->directory('events/photos'),
+            FileUpload::make('videos')
+                ->multiple()
+                ->acceptedFileTypes(['video/mp4'])
+                ->directory('events/videos'),
+        ])
+        ->columns(2)
+        ->columnSpanFull()
+        ->collapsible(false)
+        ->compact() // reduces extra spacing
+        ->extraAttributes([
+            'class' => 'bg-white border rounded-xl shadow-sm p-4'
+        ]),
+    ]);
     }
 
     public static function table(Table $table): Table
