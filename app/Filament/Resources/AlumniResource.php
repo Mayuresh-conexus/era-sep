@@ -89,12 +89,20 @@ class AlumniResource extends Resource
                     ->directory('alumni/photos'),
 
                 Forms\Components\Textarea::make('bio')
-                    ->maxLength(1000)
-                    ->columnSpanFull(),
+                    ->maxLength(1000),
+                   
 
                 Forms\Components\Toggle::make('status')
                     ->label('Active')
                     ->default(true),
+                
+                Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->label('Password')
+                    ->required(fn($record) => $record === null) // required only when creating
+                    ->dehydrateStateUsing(fn($state) => \Illuminate\Support\Facades\Hash::make($state))
+                    ->dehydrated(fn($state) => filled($state))
+                    ->maxLength(255),
             ]);
     }
 

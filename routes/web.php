@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\GalleryController;
+use App\Http\Controllers\AlumniAuthController;
 
 
 
@@ -50,5 +51,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('/alumni/login', [AlumniAuthController::class, 'showLoginForm'])->name('alumni.login');
+Route::post('/alumni/login', [AlumniAuthController::class, 'login']);
+Route::post('/alumni/logout', [AlumniAuthController::class, 'logout'])->name('alumni.logout');
+
+Route::middleware('auth:alumni')->group(function () {
+    Route::get('/alumni/dashboard', fn() => view('alumni.dashboard'));
+});
+
 
 require __DIR__.'/auth.php';

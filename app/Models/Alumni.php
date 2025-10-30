@@ -13,6 +13,7 @@ class Alumni extends Model
         'first_name',
         'last_name',
         'email',
+        'password',
         'phone',
         'gender',
         'date_of_birth',
@@ -31,4 +32,16 @@ class Alumni extends Model
         'bio',                 // short introduction
         'status',              // active/inactive
     ];
+
+    protected $hidden = [
+        'password',
+    ];
+
+     // Automatically hash password
+    protected function setPasswordAttribute($value)
+    {
+        if ($value && !\Illuminate\Support\Facades\Hash::needsRehash($value)) {
+            $this->attributes['password'] = bcrypt($value);
+        }
+    }
 }
