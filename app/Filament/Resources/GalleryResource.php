@@ -25,6 +25,9 @@ class GalleryResource extends Resource
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
+
+         ->schema([
+                 Forms\Components\Section::make('Gallery Information')
             ->schema([
                 Forms\Components\TextInput::make('title')->required(),
                 Forms\Components\TextInput::make('year')
@@ -33,7 +36,8 @@ class GalleryResource extends Resource
                     ->minValue(1950)
                     ->maxValue(date('Y')),
                 Forms\Components\Textarea::make('description')->columnSpanFull(),
-            ]);
+            ]),
+        ]);
     }
 
     public static function table(Tables\Table $table): Tables\Table
@@ -48,6 +52,7 @@ class GalleryResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ]);
+        
     }
 
     public static function getRelations(): array
