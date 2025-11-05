@@ -12,7 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('gallery_id')->constrained()->onDelete('cascade');
             $table->string('type')->default('photo'); // photo or video
-            $table->string('file_path')->nullable(); // photo path
+            $table->json('file_path')->nullable(); // supports multiple photos
             $table->string('video_url')->nullable(); // YouTube/Vimeo/embed link
             $table->timestamps();
         });

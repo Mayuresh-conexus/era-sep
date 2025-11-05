@@ -38,16 +38,16 @@
                                         <ul class="footer-widget-two__quick-links-list list-unstyled">
                                             <li><a href="#"> <span class="icon-plus"></span> Home</a>
                                             </li>
-                                            <li><a href=""> <span class="icon-plus"></span> About
+                                            <li><a href="about.php"> <span class="icon-plus"></span> About
                                                     Us</a></li>
-                                            <li><a href=""> <span class="icon-plus"></span>
+                                            <li><a href="event.php"> <span class="icon-plus"></span>
                                                     Reunions & Events</a></li>
                                             <li><a href=""> <span class="icon-plus"></span> Meet the Team</a>
                                             </li>
-                                            <li><a href=""> <span class="icon-plus"></span> Event registration</a></li>
-                                            <li><a href=""> <span class="icon-plus"></span>
+                                            <li><a href="/register.php"> <span class="icon-plus"></span> Event registration</a></li>
+                                            <li><a href="login.php"> <span class="icon-plus"></span>
                                                     Alumni login</a></li>
-                                            <li><a href=""> <span class="icon-plus"></span> GIVE BACK - UPLIFT</a>
+                                            <li><a href="sponsorships.php"> <span class="icon-plus"></span> GIVE BACK - UPLIFT</a>
                                             </li>
                                             
                                          
@@ -60,14 +60,14 @@
                                         <h4 class="footer-widget-two__title">Support</h4>
                                         <ul class="footer-widget-two__quick-links-list list-unstyled">
                                          
-                                            <li><a href=""> <span class="icon-plus"></span> Privacy &
+                                            <li><a href="privicay-policy.php"> <span class="icon-plus"></span> Privacy &
                                                     Policy</a></li>
-                                            <li><a href=""> <span class="icon-plus"></span>
-                                                    Tearm & Condition</a></li>
-                                            <li><a href=""> <span class="icon-plus"></span> Faq</a>
+                                            <li><a href="our-community.php"> <span class="icon-plus"></span>
+                                                    Our Community</a></li>
+                                            <li><a href="faq.php"> <span class="icon-plus"></span> Faq</a>
                                             </li>
                                            
-                                            <li><a href=""> <span class="icon-plus"></span>
+                                            <li><a href="contact.php"> <span class="icon-plus"></span>
                                                     Contact</a></li>
                                         </ul>
                                     </div>
@@ -79,8 +79,8 @@
                                         <ul class="footer-widget-two__quick-links-list list-unstyled">
                                             <li><a href=""> <span class="icon-plus"></span> Volunteer</a>
                                             </li>
-                                            <li><a href=""> <span class="icon-plus"></span> Donate</a></li>
-                                            <li><a href=""> <span class="icon-plus"></span>
+                                            <li><a href="donation-form.php"> <span class="icon-plus"></span> Donate</a></li>
+                                            <li><a href="sponsorships.php"> <span class="icon-plus"></span>
                                                    Sponsor</a></li>
                                             <li><a href=""> <span class="icon-plus"></span>  
                                                     Share Your Story</a>
@@ -164,3 +164,56 @@
         <!-- /.mobile-nav__content -->
     </div>
     <!-- /.mobile-nav__wrapper -->
+
+    <!-- Search Popup -->
+    <div class="search-popup">
+        <div class="color-layer"></div>
+        <button class="close-search"><span class="far fa-times fa-fw"></span></button>
+        <form method="post" action="#">
+            <div class="form-group">
+                <input type="search" name="search-field" value="" placeholder="Search Here" required="">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+    </div>
+    <!-- End Search Popup -->
+
+    <a href="#" data-target="html" class="scroll-to-target scroll-to-top">
+        <span class="scroll-to-top__wrapper"><span class="scroll-to-top__inner"></span></span>
+        <span class="scroll-to-top__text"> Go Back Top</span>
+    </a>
+
+
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/jarallax.min.js"></script>
+    <script src="assets/js/jquery.ajaxchimp.min.js"></script>
+    <script src="assets/js/jquery.appear.min.js"></script>
+    <script src="assets/js/swiper.min.js"></script>
+    <script src="assets/js/jquery.magnific-popup.min.js"></script>
+    <script src="assets/js/jquery.validate.min.js"></script>
+    <script src="assets/js/odometer.min.js"></script>
+    <script src="assets/js/wNumb.min.js"></script>
+    <script src="assets/js/wow.js"></script>
+    <script src="assets/js/isotope.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/jquery-ui.js"></script>
+    <script src="assets/js/jquery.nice-select.min.js"></script>
+    <script src="assets/js/marquee.min.js"></script>
+    <script src="assets/js/aos.js"></script>
+
+
+
+
+    <script src="assets/js/gsap/gsap.js"></script>
+    <script src="assets/js/gsap/ScrollTrigger.js"></script>
+    <script src="assets/js/gsap/SplitText.js"></script>
+
+
+
+
+    <!-- template js -->
+    <script src="assets/js/script.js"></script>
+</body>
+
+</html>

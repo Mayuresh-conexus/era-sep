@@ -5,24 +5,40 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AlumniResource\Pages;
 use App\Models\Alumni;
 use Filament\Forms;
+use Filament\Forms\Form;
+use Filament\Forms\Components\Wizard;
+use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Toggle;
+use Filament\Forms\Components\Checkbox;
+use Filament\Forms\Components\CheckboxList;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\IconColumn;
 
 class AlumniResource extends Resource
 {
     protected static ?string $model = Alumni::class;
-
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
-    protected static ?string $navigationGroup = 'Alumni Management';
-    protected static ?string $navigationLabel = 'Alumni';
-    public static function getNavigationBadge(): ?string
-{
-    return static::getModel()::count(); // returns total number of alumni
-}
 
-    public static function form(Forms\Form $form): Forms\Form
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
+    // Force wizard and form to full-width
+    protected static ?string $formLayout = 'default';
+
+    public static function form(Form $form): Form
     {
         return $form
+            ->columns(2) // 2 columns for fields
             ->schema([
                 Forms\Components\TextInput::make('first_name')
                     ->required()
@@ -88,52 +104,40 @@ class AlumniResource extends Resource
                     ->directory('alumni/photos'),
 
                 Forms\Components\Textarea::make('bio')
-                    ->maxLength(1000)
-                    ->columnSpanFull(),
+                    ->maxLength(1000),
+                   
 
                 Forms\Components\Toggle::make('status')
                     ->label('Active')
                     ->default(true),
+                
+                Forms\Components\TextInput::make('password')
+                    ->password()
+                    ->label('Password')
+                    ->required(fn($record) => $record === null) // required only when creating
+                    ->dehydrateStateUsing(fn($state) => \Illuminate\Support\Facades\Hash::make($state))
+                    ->dehydrated(fn($state) => filled($state))
+                    ->maxLength(255),
             ]);
     }
 
-    public static function table(Tables\Table $table): Tables\Table
+    public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                Tables\Columns\ImageColumn::make('profile_photo')
-                    ->circular(),
-
-                Tables\Columns\TextColumn::make('first_name')
-                    ->searchable()
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('last_name')
-                    ->searchable()
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('phone'),
-
-                Tables\Columns\TextColumn::make('batch_year')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('passing_year')
-                    ->sortable(),
-
-                Tables\Columns\TextColumn::make('company')
-                    ->searchable(),
-
-                Tables\Columns\TextColumn::make('current_job_title')
-                    ->label('Job Title'),
-
-                Tables\Columns\IconColumn::make('status')
-                    ->boolean(),
+                ImageColumn::make('profile_photo')->circular(),
+                Tables\Columns\TextColumn::make('full_name')
+                ->label('Name')
+                ->getStateUsing(fn ($record) => $record->first_name . ' ' . $record->last_name)
+                ->searchable()
+                ->sortable(),
+                TextColumn::make('mobile_number'),
+                TextColumn::make('passing_year')->sortable(),
+                TextColumn::make('company')->searchable(),
+                IconColumn::make('status')->boolean(),
             ])
-            ->filters([])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
