@@ -34,7 +34,7 @@ Route::get('/', function () {
 
 
 
-<<<<<<< Updated upstream
+
 //Events
 Route::get('/events', [EventController::class, 'index'])->name('events.index');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
@@ -42,7 +42,7 @@ Route::get('/events/{event}', [EventController::class, 'show'])->name('events.sh
 //Gallery
 Route::get('/gallery', [GalleryController::class, 'index'])->name('galleries.index');
 Route::get('/gallery/{gallery}', [GalleryController::class, 'show'])->name('galleries.show');
-=======
+
 Route::get('/ourstory', function () {
     return view('frontend.ourstory');
 });
@@ -63,7 +63,7 @@ Route::get('/get-involved', function () {
     return view('frontend.get-involved');
 });
 
->>>>>>> Stashed changes
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
